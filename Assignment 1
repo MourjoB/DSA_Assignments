@@ -1,0 +1,68 @@
+#include <stdio.h>
+
+void rotateArray(int arr[], int n, int k, char direction) {
+  // Handle negative k
+  k = k % n;
+
+  // Logic for clockwise rotation
+  if (direction == 'c') {
+    int temp[k];
+    // Store the last k elements
+    for (int i = 0; i < k; i++) {
+      temp[i] = arr[n - 1 - i];
+    }
+    // Shift remaining elements
+    for (int i = n - 1; i >= k; i--) {
+      arr[i] = arr[i - k];
+    }
+    // Copy back the stored elements
+    for (int i = 0; i < k; i++) {
+      arr[i] = temp[i];
+    }
+  } else if (direction == 'a') { // Logic for anticlockwise rotation
+    int temp[k];
+    // Store the first k elements
+    for (int i = 0; i < k; i++) {
+      temp[i] = arr[i];
+    }
+    // Shift remaining elements
+    for (int i = 0; i < n - k; i++) {
+      arr[i] = arr[i + k];
+    }
+    // Copy back the stored elements
+    for (int i = n - k; i < n; i++) {
+      arr[i] = temp[i - (n - k)];
+    }
+  } else {
+    printf("Invalid direction. Please enter 'c' for clockwise or 'a' for anticlockwise.\n");
+  }
+}
+
+int main() {
+  int n, k;
+  char direction;
+
+  printf("Enter the size of the array: ");
+  scanf("%d", &n);
+
+  printf("Enter the elements of the array:\n");
+  for (int i = 0; i < n; i++) {
+    scanf("%d", &arr[i]);
+  }
+
+  printf("Enter the number of positions to rotate (k): ");
+  scanf("%d", &k);
+
+  printf("Enter the rotation direction (c - clockwise, a - anticlockwise): ");
+  scanf(" %c", &direction); // Read with a space to avoid newline character issues
+
+  rotateArray(arr, n, k, direction);
+
+  printf("Rotated array: ");
+  for (int i = 0; i < n; i++) {
+    printf("%d ", arr[i]);
+  }
+  printf("\n");
+
+  return 0;
+}
